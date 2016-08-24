@@ -6,15 +6,15 @@ var inquirer = require('inquirer');
 var _ = require('lodash');
 
 // Nopi Files
-var gPath = require('./generators/pathGen.js');
-var gApi = require('./generators/apiGen.js');
-var gFile = require('./generators/fileGen.js');
+var generatePath = require('./generators/pathGen.js');
+var generateApi = require('./generators/apiGen.js');
+var generateFile = require('./generators/fileGen.js');
 
 program
-  .version('0.0.2')
+  .version('0.0.3')
   .option('new <apiName>', 'Generate New Node API.')
-  .option('controller <controllerName>', 'Generate Controller file.')
-  .option('model <ModelName>', 'Generate Model file.')
+  .option('-c, controller <controllerName>', 'Generate Controller file.')
+  .option('-m, model <ModelName>', 'Generate Model file.')
   .parse(process.argv);
 
 // Directory for Nopi.js
@@ -32,7 +32,7 @@ if (!process.argv.slice(2).length) {
 if (typeof program.new !== 'undefined') {
   var apiName = program.new;
   console.log(colors.bold('Generating New API: ') + colors.yellow(apiName.toString()) + colors.bold(' in ') + colors.yellow(currentWDir.toString()));
-  gApi.generateApi(apiName, currentWDir, directory);
+  generateApi(apiName, currentWDir, directory);
 }
 
 // File Generation
@@ -51,7 +51,7 @@ if (typeof program.model !== 'undefined') {
 
 // Generate File Call
 if (fileType.length > 1 && fileName.length > 1) {
-  var folderPath = gPath.generatePath(fileType + 's', currentWDir);
+  var folderPath = generatePath(fileType + 's', currentWDir);
   console.log(colors.bold.underline('Generating ' + _.capitalize(fileType) + ' File:') + ' ' + colors.yellow(fileName + '.js'));
-  gFile.generateFile(folderPath, fileType, fileName, directory);
+  generateFile(folderPath, fileType, fileName, directory);
 }

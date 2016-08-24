@@ -29,4 +29,4 @@ var generateFile = function(foundPath, fileType, fileName, directory) {
   });
 };
 
-module.exports.generateFile = generateFile;
+module.exports = generateFile;

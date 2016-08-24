@@ -1,8 +1,12 @@
 {
   "name": "nopi.js",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "CLI Tool/Framework for generating Node APIs and Files",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mikeysax/nopi.js"
+  },
   "keywords": [
     "generator",
     "generate",

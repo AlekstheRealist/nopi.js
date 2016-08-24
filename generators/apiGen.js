@@ -13,7 +13,7 @@ var generateApi = function(apiName, currentWDir, directory) {
 
   fs.copy(directory + '/api_template', apiDestination, function(err) {
     if (err) { console.log(err); }
-  })
+  });
 
   console.log(colors.bold('Running npm install: '));
 
@@ -29,4 +29,4 @@ var generateApi = function(apiName, currentWDir, directory) {
   });
 };
 
-module.exports.generateApi = generateApi;
+module.exports = generateApi;
