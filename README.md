@@ -1,6 +1,7 @@
 # nopi
-### *Nopi* is a CLI Tool for generating a simple Node API.
+### *Nopi* is a CLI Tool / Framework for generating a simple Node API and Files.
 
+![](nopi.png)
 ___
 ### Installation
 
@@ -20,7 +21,7 @@ ___
 
 When you create a new project, *Nopi* will run ```npm install``` automatically in the created project directory. All you have to do is be patient, it is not frozen.
 
-Once it is done, cd to project and start the server with:
+Once it is done, cd to API and start the server with:
 
 ```$ npm start```
 
@@ -40,7 +41,7 @@ ___
 
 On file creation, *Nopi* will look through your working project directory for controller and model folders and create the corresponding file type. If none of these folders exist, *Nopi* will create the file in the root of your project.
 
-Controllers which are generated should be added to the ```index.js``` to connect and route with intended endpoint. Once the controller is setup inside of the index controller, it is connected to your API.
+Controllers which are generated should be added to the ```index.js``` to connect and route with intended endpoint. Once the controller is setup inside of the index controller, it is connected to your API server.
 
 *Nopi* also creates ```.nopiPath``` folder in your project and saves the path of the file type generated. This is to optimize the speed of file creation. By saving this path *Nopi* does not have to dynamically find the folder again after each generated file.
 

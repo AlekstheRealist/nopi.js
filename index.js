@@ -11,7 +11,7 @@ var gApi = require('./generators/apiGen.js');
 var gFile = require('./generators/fileGen.js');
 
 program
-  .version('0.0.1')
+  .version('0.0.2')
   .option('new <apiName>', 'Generate New Node API.')
   .option('controller <controllerName>', 'Generate Controller file.')
   .option('model <ModelName>', 'Generate Model file.')
