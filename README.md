@@ -7,7 +7,7 @@ ___
 
 <strong>To Install *Nopi*:</strong>
 
-```$ npm install nopi -g```
+```$ npm install nopi.js -g```
 
 To see a list of commands:
 
