@@ -25,6 +25,10 @@ Once it is done, cd to API and start the server with:
 
 ```$ npm start```
 
+### Database Selection
+
+
+
 ___
 ### File Generation
 

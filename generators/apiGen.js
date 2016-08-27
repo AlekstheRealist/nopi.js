@@ -2,7 +2,7 @@ var fs = require('fs-extra');
 var spawn = require('child_process').spawn;
 var colors = require('colors');
 
-var generateApi = function(apiName, currentWDir, directory) {
+var generateApi = function(apiName, currentWDir, directory, type) {
   var apiDestination = currentWDir + '/' + apiName;
   fs.mkdirs(apiDestination, function(err) {
     if (err) { console.log(err); }
@@ -11,7 +11,7 @@ var generateApi = function(apiName, currentWDir, directory) {
   // Server Start Command
   var projectStart = 'npm start';
 
-  fs.copy(directory + '/api_template', apiDestination, function(err) {
+  fs.copy(directory + `/${type}_api_template`, apiDestination, function(err) {
     if (err) { console.log(err); }
   });
 

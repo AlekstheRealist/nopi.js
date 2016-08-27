@@ -1,0 +1,23 @@
+{
+  "name": "nopi-api",
+  "nopi_database": "mongo",
+  "version": "0.0.1",
+  "description": "Node API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Node",
+    "API"
+  ],
+  "author": "Michael Farrell",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "method-override": "^2.3.6",
+    "mongoose": "^4.5.9"
+  }
+}

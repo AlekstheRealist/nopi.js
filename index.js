@@ -4,6 +4,7 @@ var program = require('commander');
 var colors = require('colors');
 var inquirer = require('inquirer');
 var _ = require('lodash');
+var spawn = require('child_process').spawn;
 
 // Nopi Files
 var generatePath = require('./generators/pathGen.js');
@@ -11,10 +12,11 @@ var generateApi = require('./generators/apiGen.js');
 var generateFile = require('./generators/fileGen.js');
 
 program
-  .version('0.0.4')
+  .version('0.1.0')
   .option('new <apiName>', 'Generate New Node API.')
   .option('-c, controller <controllerName>', 'Generate Controller file.')
   .option('-m, model <ModelName>', 'Generate Model file.')
+  .option('db, <migrate>', 'Run Pending Migrations (Postgresql Only)')
   .parse(process.argv);
 
 // Directory for Nopi.js
@@ -31,8 +33,31 @@ if (!process.argv.slice(2).length) {
 // API Generation
 if (typeof program.new !== 'undefined') {
   var apiName = program.new;
-  console.log(colors.bold('Generating New API: ') + colors.yellow(apiName.toString()) + colors.bold(' in ') + colors.yellow(currentWDir.toString()));
-  generateApi(apiName, currentWDir, directory);
+  setTimeout(function() {
+    var question = [
+      {
+        type: 'input',
+        name: 'database',
+        message: 'Enter Database Type, mongo / postgres:'
+      }
+    ];
+
+    inquirer.prompt(question).then(function (answer) {
+      var database = answer.database;
+      if (database.match(/mongo/) || database.match(/postgres/)) {
+        console.log(`${colors.bold('Generating New API: ')}
+          ${colors.yellow(apiName.toString())}
+          ${colors.bold(' in ')}
+          ${colors.yellow(currentWDir.toString())}
+          ${colors.bold(' with ')}
+          ${colors.yellow(_.capitalize(database.toString()))}
+          ${colors.bold(' database.')}`);
+        generateApi(apiName, currentWDir, directory, database);
+      } else {
+        console.log(colors.red('Selected Database Type Does Not Exist.'));
+      }
+    });
+  }, 100);
 }
 
 // File Generation
@@ -53,5 +78,16 @@ if (typeof program.model !== 'undefined') {
 if (fileType.length > 1 && fileName.length > 1) {
   var folderPath = generatePath(fileType + 's', currentWDir);
   console.log(colors.bold.underline('Generating ' + _.capitalize(fileType) + ' File:') + ' ' + colors.yellow(fileName + '.js'));
-  generateFile(folderPath, fileType, fileName, directory);
+  generateFile(folderPath, fileType, fileName, directory, currentWDir);
+}
+
+// Run Pending Migrations
+if (typeof program.db !== 'undefined') {
+  var migrationType = program.db;
+  var migrationCommand = `db:${migrationType}`;
+
+  var runMigrations = spawn('node_modules/.bin/sequelize', ['migrationCommand'], { stdio: 'inherit' });
+  runMigrations.on('close', function (exitCode) {
+    console.log('Successfuly Ran Pending Migrations.');
+  });
 }

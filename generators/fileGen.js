@@ -1,8 +1,51 @@
 var fs = require('fs-extra');
+var exec = require('child_process').exec;
 var _ = require('lodash');
 var colors = require('colors');
+var inquirer = require('inquirer');
 
-var generateFile = function(foundPath, fileType, fileName, directory) {
+var generateFile = function(foundPath, fileType, fileName, directory, currentWDir) {
+
+  var projectPackageJSON = require(currentWDir + '/package.json');
+
+  if (projectPackageJSON.nopi_database == 'mongo') {
+    // For All Mongo Files
+    fileCreation(foundPath, fileType, fileName, directory, currentWDir);
+
+  } else if (projectPackageJSON.nopi_database == 'postgres') {
+    if (fileType == 'controller') {
+      // For Controllers
+      fileCreation(foundPath, fileType, fileName, directory, currentWDir);
+
+    } else {
+      // For Postgresql Models
+      setTimeout(function() {
+        var question = [
+          {
+            type: 'input',
+            name: 'attr',
+            message: 'Enter Attribute(s) (Example: "name:datatype"):'
+          }
+        ];
+
+        inquirer.prompt(question).then(function (answer) {
+          var attr = answer.attr.toString();
+          exec('node_modules/.bin/sequelize model:create --name ' + fileName + ' --attributes ' + attr, function(error) {
+            if (error) { console.log('Error: ' + error); }
+            console.log('Successfuly created ' + colors.yellow('Migration') + ' and ' + colors.yellow(fileName + '.js Model') + ' in ' + colors.yellow(foundPath.toString()) + ' folder.');
+          });
+        });
+      }, 100);
+    }
+
+  } else {
+    // Accounts for Missing field in package.json
+    console.log(`The ${colors.green('package.json')} File Is ${colors.red('Missing')} ${colors.bold('nopi_database')} Key.`);
+    console.log(`${colors.red('Cannot Determine Database Type')}.`);
+  }
+};
+
+var fileCreation = function(foundPath, fileType, fileName, directory, currentWDir) {
   var readTemplate = fs.createReadStream(directory + '/file_templates/' + fileType + '.js');
   var filePath = './' + foundPath + '/' + fileName + '.js';
 
@@ -27,6 +70,6 @@ var generateFile = function(foundPath, fileType, fileName, directory) {
       console.log(colors.yellow(fileName + '.js') + colors.red(' already exists in this project.'));
     }
   });
-};
+}
 
 module.exports = generateFile;
