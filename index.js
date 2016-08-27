@@ -83,11 +83,19 @@ if (fileType.length > 1 && fileName.length > 1) {
 
 // Run Pending Migrations
 if (typeof program.db !== 'undefined') {
-  var migrationType = program.db;
-  var migrationCommand = `db:${migrationType}`;
+  var projectPackageJSON = require(currentWDir + '/package.json');
 
-  var runMigrations = spawn('node_modules/.bin/sequelize', ['migrationCommand'], { stdio: 'inherit' });
-  runMigrations.on('close', function (exitCode) {
-    console.log('Successfuly Ran Pending Migrations.');
-  });
+  if (projectPackageJSON.nopi_database == 'postgres') {
+    var migrationType = program.db;
+    var migrationCommand = `db:${migrationType}`;
+
+    var runMigrations = spawn('node_modules/.bin/sequelize', ['migrationCommand'], { stdio: 'inherit' });
+    runMigrations.on('close', function (exitCode) {
+      console.log('Successfuly Ran Pending Migrations.');
+    });
+  } else {
+    // Accounts for Missing field in package.json
+    console.log(`The ${colors.green('package.json')} File Is ${colors.red('Not')} a ${colors.bold('Nopi.js')} Postgresql API.`);
+    console.log(`${colors.red('Cannot Migrate Database')}.`);
+  }
 }
