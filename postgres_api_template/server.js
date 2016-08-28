@@ -26,7 +26,7 @@ app.use(require('./controllers'));
 app.use('/api', router);
 
 // Server Started
-models.sequelize.sync().then(function () {
+models.sequelize.sync().then(function() {
   app.listen(port);
   console.log('Nopi API Listening On ' + port);
-}
+});
