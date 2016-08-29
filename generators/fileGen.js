@@ -10,12 +10,12 @@ var generateFile = function(foundPath, fileType, fileName, directory, currentWDi
 
   if (projectPackageJSON.nopi_database == 'mongo') {
     // For All Mongo Files
-    fileCreation(foundPath, fileType, fileName, directory, currentWDir);
+    fileCreation(foundPath, fileType, fileName, directory, currentWDir, projectPackageJSON);
 
   } else if (projectPackageJSON.nopi_database == 'postgres') {
     if (fileType == 'controller') {
-      // For Controllers
-      fileCreation(foundPath, fileType, fileName, directory, currentWDir);
+      // For Postgres Controllers
+      fileCreation(foundPath, fileType, fileName, directory, currentWDir, projectPackageJSON);
 
     } else {
       // For Postgresql Models
@@ -31,7 +31,7 @@ var generateFile = function(foundPath, fileType, fileName, directory, currentWDi
         inquirer.prompt(question).then(function (answer) {
           var attr = answer.attr.toString();
           exec('node_modules/.bin/sequelize model:create --name ' + fileName + ' --attributes ' + attr, function(error) {
-            if (error) { console.log('Error: ' + error); }
+            if (error) { return(console.log('Error: ' + error)); }
             console.log('Successfuly created ' + colors.yellow('Migration') + ' and ' + colors.yellow(fileName + '.js Model') + ' in ' + colors.yellow(foundPath.toString()) + ' folder.');
           });
         });
@@ -45,8 +45,8 @@ var generateFile = function(foundPath, fileType, fileName, directory, currentWDi
   }
 };
 
-var fileCreation = function(foundPath, fileType, fileName, directory, currentWDir) {
-  var readTemplate = fs.createReadStream(directory + '/file_templates/' + fileType + '.js');
+var fileCreation = function(foundPath, fileType, fileName, directory, currentWDir, projectPackageJSON) {
+  var readTemplate = fs.createReadStream(directory + '/file_templates/' + projectPackageJSON.nopi_database + '_' + fileType + '.js');
   var filePath = './' + foundPath + '/' + fileName + '.js';
 
   fs.stat(filePath, function(err, stats) {

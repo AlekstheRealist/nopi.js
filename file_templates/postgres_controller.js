@@ -1,6 +1,7 @@
 // Route Dependencies
 var express = require('express');
 var router = express.Router();
+var models = '../models';
 
 // Import Model
 
@@ -9,7 +10,7 @@ var router = express.Router();
 // Example:
 // router.get('/:id', function(req, res) {
   // Logic Goes Here
-//})
+//});
 
 // ------------------------------------
 

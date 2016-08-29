@@ -16,7 +16,7 @@ var port = process.env.PORT || 8080;
 // API Routes
 var router = express.Router();
 router.get('/', function(req, res) {
-  res.json({ message: 'Welcome to Nopi-API!' });
+  res.json({ message: 'Welcome to Nopi API!' });
 });
 
 // Controllers Contain Routes

@@ -12,7 +12,7 @@ var generateApi = require('./generators/apiGen.js');
 var generateFile = require('./generators/fileGen.js');
 
 program
-  .version('0.1.3')
+  .version('0.1.4')
   .option('new <apiName>', 'Generate New Node API.')
   .option('-c, controller <controllerName>', 'Generate Controller file.')
   .option('-m, model <ModelName>', 'Generate Model file.')
@@ -45,13 +45,7 @@ if (typeof program.new !== 'undefined') {
     inquirer.prompt(question).then(function (answer) {
       var database = answer.database;
       if (database.match(/mongo/) || database.match(/postgres/)) {
-        console.log(`${colors.bold('Generating New API: ')}
-          ${colors.yellow(apiName.toString())}
-          ${colors.bold(' in ')}
-          ${colors.yellow(currentWDir.toString())}
-          ${colors.bold(' with ')}
-          ${colors.yellow(_.capitalize(database.toString()))}
-          ${colors.bold(' database.')}`);
+        console.log(`${colors.bold('Generating New API: ')}${colors.yellow(apiName.toString())}${colors.bold(' in ')}${colors.yellow(currentWDir.toString())}${colors.bold(' with ')}${colors.yellow(_.capitalize(database.toString()))}${colors.bold(' database.')}`);
         generateApi(apiName, currentWDir, directory, database);
       } else {
         console.log(colors.red('Selected Database Type Does Not Exist.'));
