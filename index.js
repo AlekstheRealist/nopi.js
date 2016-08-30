@@ -12,7 +12,7 @@ var generateApi = require('./generators/apiGen.js');
 var generateFile = require('./generators/fileGen.js');
 
 program
-  .version('0.1.4')
+  .version('0.1.5')
   .option('new <apiName>', 'Generate New Node API.')
   .option('-c, controller <controllerName>', 'Generate Controller file.')
   .option('-m, model <ModelName>', 'Generate Model file.')

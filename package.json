@@ -1,6 +1,6 @@
 {
   "name": "nopi.js",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "CLI Tool/Framework for generating Node APIs and Files",
   "main": "index.js",
   "repository": {
