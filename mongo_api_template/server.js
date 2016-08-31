@@ -3,6 +3,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
+var router = express.Router();
 
 // Database Setup
 // var mongoose   = require('mongoose');
@@ -16,17 +17,17 @@ app.use(methodOverride());
 // Port
 var port = process.env.PORT || 8080;
 
+// Router Prefixed Paths
+app.use('/', router);
+
 // API Routes
-var router = express.Router();
 router.get('/', function(req, res) {
-    res.json({ message: 'Welcome to Nopi-API!' });
+  res.json({ message: 'Welcome to Nopi-API!' });
 });
 
 // Controllers Contain Routes
 app.use(require('./controllers'));
 
-// Router Prefixed Paths
-app.use('/api', router);
 
 // Server Started
 app.listen(port);

@@ -34,6 +34,12 @@ When generating a new API project, you can select from:
 In your projects ```package.json``` there is a ```nopi_database``` field
 which is used in Model file creation.
 
+### Example Projects
+
+[Nopi MongoDB Example(Coming Soon!)]()
+
+[Nopi Postgresql Example](https://github.com/Mikeysax/nopiPostgresExample)
+
 ___
 ### File Generation
 

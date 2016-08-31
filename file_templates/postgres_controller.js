@@ -1,15 +1,15 @@
 // Route Dependencies
 var express = require('express');
 var router = express.Router();
-var models = '../models';
-
-// Import Model
+var models = require('../models');
 
 // Routes ----------------------------
 
 // Example:
-// router.get('/:id', function(req, res) {
-  // Logic Goes Here
+// router.get('', function(req, res) {
+  // models.ModelName.action({
+    // Logic Here
+  //});
 //});
 
 // ------------------------------------
