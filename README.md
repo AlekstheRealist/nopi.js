@@ -36,7 +36,7 @@ which is used in Model file creation.
 
 ### Example Projects
 
-[Nopi MongoDB Example(Coming Soon!)]()
+[Nopi MongoDB Example](https://github.com/AlekstheRealist/Nopi_mongo_example)
 
 [Nopi Postgresql Example](https://github.com/Mikeysax/nopiPostgresExample)
 
