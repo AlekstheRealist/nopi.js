@@ -12,7 +12,7 @@ var generateApiOrMvc = require('./generators/apiOrMvcGen.js');
 var generateFile = require('./generators/fileGen.js');
 
 program
-  .version('0.3.1')
+  .version('0.3.2')
   .option('new <Name>', 'Generate New Node API or MVC Project.')
   .option('-v, view <viewName>', 'Generate View file.')
   .option('-c, controller <controllerName>', 'Generate Controller file.')
