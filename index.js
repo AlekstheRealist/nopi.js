@@ -8,12 +8,13 @@ var spawn = require('child_process').spawn;
 
 // Nopi Files
 var generatePath = require('./generators/pathGen.js');
-var generateApi = require('./generators/apiGen.js');
+var generateApiOrMvc = require('./generators/apiOrMvcGen.js');
 var generateFile = require('./generators/fileGen.js');
 
 program
-  .version('0.2.0')
-  .option('new <apiName>', 'Generate New Node API.')
+  .version('0.3.0')
+  .option('new <Name>', 'Generate New Node API or MVC Project.')
+  .option('-v, view <viewName>', 'Generate View file.')
   .option('-c, controller <controllerName>', 'Generate Controller file.')
   .option('-m, model <ModelName>', 'Generate Model file.')
   .option('db, <migrate>', 'Run Pending Migrations (Postgresql Only)')
@@ -37,18 +38,24 @@ if (typeof program.new !== 'undefined') {
     var question = [
       {
         type: 'input',
+        name: 'projectType',
+        message: 'Enter Project Type (api / mvc):'
+      },
+      {
+        type: 'input',
         name: 'database',
-        message: 'Enter Database Type, mongo / postgres:'
+        message: 'Enter Database Type (mongo / postgres):'
       }
     ];
 
     inquirer.prompt(question).then(function (answer) {
       var database = answer.database;
-      if (database.match(/mongo/) || database.match(/postgres/)) {
-        console.log(`${colors.bold('Generating New API: ')}${colors.yellow(apiName.toString())}${colors.bold(' in ')}${colors.yellow(currentWDir.toString())}${colors.bold(' with ')}${colors.yellow(_.capitalize(database.toString()))}${colors.bold(' database.')}`);
-        generateApi(apiName, currentWDir, directory, database);
+      var type = answer.projectType;
+      if (database.match(/mongo/) || database.match(/postgres/) && type.match(/api/) || type.match(/mvc/)) {
+        console.log(`${colors.bold('Generating New Nopi ' + _.upperCase(type) + ' Project: ')}${colors.yellow(apiName.toString())}${colors.bold(' in ')}${colors.yellow(currentWDir.toString())}${colors.bold(' with ')}${colors.yellow(_.capitalize(database.toString()))}${colors.bold(' database.')}`);
+        generateApiOrMvc(apiName, currentWDir, directory, database, type);
       } else {
-        console.log(colors.red('Selected Database Type Does Not Exist.'));
+        console.log(colors.red('Selected Database or Project Type Does Not Exist.'));
       }
     });
   }, 100);
@@ -59,6 +66,10 @@ var fileType = '';
 var fileName = '';
 
 // Set File Variables
+if (typeof program.view !== 'undefined') {
+  fileType = 'view';
+  fileName = _.upperFirst(program.view);
+}
 if (typeof program.controller !== 'undefined') {
   fileType = 'controller';
   fileName = _.upperFirst(program.controller);

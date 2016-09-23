@@ -13,7 +13,7 @@ var generateFile = function(foundPath, fileType, fileName, directory, currentWDi
     fileCreation(foundPath, fileType, fileName, directory, currentWDir, projectPackageJSON);
 
   } else if (projectPackageJSON.nopi_database == 'postgres') {
-    if (fileType == 'controller') {
+    if (fileType == 'controller' || filetype == 'view') {
       // For Postgres Controllers
       fileCreation(foundPath, fileType, fileName, directory, currentWDir, projectPackageJSON);
 
@@ -46,7 +46,12 @@ var generateFile = function(foundPath, fileType, fileName, directory, currentWDi
 };
 
 var fileCreation = function(foundPath, fileType, fileName, directory, currentWDir, projectPackageJSON) {
-  var readTemplate = fs.createReadStream(directory + '/file_templates/' + projectPackageJSON.nopi_database + '_' + fileType + '.js');
+  var readTemplate = '';
+  if (fileType === 'view') {
+    readTemplate = fs.createReadStream(directory + '/file_templates/' + fileType + '.js');
+  } else {
+    readTemplate = fs.createReadStream(directory + '/file_templates/' + projectPackageJSON.nopi_database + '_' + fileType + '.js');
+  }
   var filePath = './' + foundPath + '/' + fileName + '.js';
 
   fs.stat(filePath, function(err, stats) {

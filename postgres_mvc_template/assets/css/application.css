@@ -1,0 +1,21 @@
+.welcome {
+  color: red;
+  font-size: 40px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.notice {
+  text-align: center;
+  font-size: 20px;
+  margin-top: 200px;
+  margin-bottom: 200px;
+  padding: 30px;
+  font-style: oblique;
+}
+
+.server {
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+}
