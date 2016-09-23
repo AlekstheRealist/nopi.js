@@ -9,6 +9,6 @@ module.exports = (req, data) =>
     <body>
       <h1 class="welcome">${data.content}</h1>
       <p class="notice">${data.notice}</p>
-      <p class="server">Server is being served via: ${req.headers.host}</p>
+      <p class="server">Server is on: ${req.headers.host}</p>
     </body>
   </html>`;
