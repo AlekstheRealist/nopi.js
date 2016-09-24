@@ -1,8 +1,8 @@
 {
-  "name": "nopi-api",
-  "nopi_database": "postgres",
+  "name": "nopi-mvc",
+  "nopi_database": "mongo",
   "version": "0.0.1",
-  "description": "Node API",
+  "description": "Node MVC",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -19,10 +19,7 @@
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "method-override": "^2.3.6",
-    "pg": "^6.1.0",
-    "pg-hstore": "^2.3.2",
-    "sequelize": "^3.24.1",
-    "sequelize-cli": "^2.4.0"
+    "mongoose": "^4.5.9"
   },
   "devDependencies": {
     "nodemon": "^1.10.2"
