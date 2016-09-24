@@ -1,8 +1,8 @@
 {
-  "name": "nopi-api",
+  "name": "nopi-mvc",
   "nopi_database": "postgres",
   "version": "0.0.1",
-  "description": "Node API",
+  "description": "Node MVC",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

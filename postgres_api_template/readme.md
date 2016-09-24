@@ -1,3 +1,3 @@
 ### Nopi API
 
-To start API: ```npm start```
+To start API: ```npm run dev```
